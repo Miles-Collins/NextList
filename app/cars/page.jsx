@@ -1,4 +1,6 @@
-import Image from "next/image.js";
+"use client";
+
+import Link from "next/link.js";
 import React from "react";
 
 async function GetCars() {
@@ -20,7 +22,7 @@ function Header() {
 //   getCars();
 // }, []);
 
-export default async function Page() {
+export default async function CarsPage() {
   const carsData = await GetCars();
 
   const cars = await Promise.all(carsData);
@@ -36,10 +38,12 @@ export default async function Page() {
               width={100}
               alt="Picture of Car."
             /> */}
-            <img
-              className="object-cover hover:object-scale-down h-48 w-96"
-              src={c.imgUrl}
-            />
+            <Link href={`/cars/${c.id}`}>
+              <img
+                className="object-cover hover:object-scale-down h-48 w-96"
+                src={c.imgUrl}
+              />
+            </Link>
             <p className="text-lg">
               {c.make} {c.model}
             </p>
