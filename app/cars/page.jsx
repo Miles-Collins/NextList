@@ -10,25 +10,20 @@ async function GetCars() {
     throw new Error("Something went wrong with the fetch.");
   }
   return res.json();
-  // const results = await res.json();
-  // console.log("CAR RESULTS", results);
 }
-
-function Header() {
-  return <h1 className="text-4xl">To the moon 🚀</h1>;
-}
-
-// useEffect(() => {
-//   getCars();
-// }, []);
 
 export default async function CarsPage() {
   const carsData = await GetCars();
-
+  await console.log("[CARS DATA]", carsData);
   const cars = await Promise.all(carsData);
 
   return (
     <>
+      <div className="grid grid-cols-6 mx-5">
+        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mt-5">
+          Sell Car
+        </button>
+      </div>
       <div className="grid grid-cols-4 gap-5 justify-around p-5 ">
         {cars.map((c) => (
           <div key={c.id} className="shadow-md">
@@ -40,7 +35,7 @@ export default async function CarsPage() {
             /> */}
             <Link href={`/cars/${c.id}`}>
               <img
-                className="object-cover hover:object-scale-down h-48 w-96"
+                className="object-cover hover:object-scale-down h-48 w-96 rounded"
                 src={c.imgUrl}
               />
             </Link>
